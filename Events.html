@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+    <div class="users-list" ></div>
+    <div class="user-add-form" ></div>
+    </div>
+      
+    <!-- <button onclick="empty()">  
+        Click to Empty 
+    </button> -->
+    <script>
+        let tasks = [
+    {title: "Create an App", isCompleted: true},
+    {title: "Go to Market", isCompleted: false},
+    {title: "Go to NLI", isCompleted: false},
+    {title: "Go to bazar", isCompleted: false},
+    {title: "Go to Dukan", isCompleted: false},
+];
+function rendertasks() {
+    document.body.querySelector(".users-list").innerHTML = "";
+    const ul = document.createElement('ul');
+    tasks.forEach((user, index) => {
+        let li = document.createElement('li');
+        let closeButton = document.createElement('button');
+        closeButton.innerHTML = "&times;"  
+        closeButton.style.margin= "15px"
+        li.innerHTML = tasks [index].title;
+        const read = document.createElement('button');
+        read.innerHTML = "&plus;"
+        read.style.marginLeft= "10px"
+       
+        
+        read.onclick = function () {
+            if(tasks.isCompleted == true){ 
+            li.style.textDecoration = "line-through"
+            tasks.isCompleted = false;
+            }else {
+                li.style.textDecoration = "none"
+                tasks.isCompleted = true;
+            }
+           
+        }
+        closeButton.onclick = function () {  
+            tasks.splice(index, 1)
+            rendertasks()
+        }
+        li.append(read);
+        li.append(closeButton)
+        ul.append(li)
+    }); 
+    empty();
+    document.body.querySelector(".users-list").append(ul)
+}
+function empty() { 
+    if(tasks.length == 0){
+        alert("There is no Task ");
+        }
+
+         }
+const input = document.createElement('input');
+input.style.marginRight = "10px"
+const inputButton = document.createElement('button');
+inputButton.innerHTML = "Create User"
+input.placeholder = "Create a new user";
+input.style.padding = "10px 20px"
+inputButton.style.padding = "10px 20px"
+document.body.querySelector(".user-add-form").append(input)
+document.body.querySelector(".user-add-form").append(inputButton)
+inputButton.onclick = function () {
+    if (input.value) {
+        tasks.push({title: input.value, isCompleted: true })
+        input.value = ""
+    }
+    rendertasks()
+}
+rendertasks()
+    </script>
+</body>
+</html>
